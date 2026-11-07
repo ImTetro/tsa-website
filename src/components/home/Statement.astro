@@ -1,0 +1,23 @@
+---
+import { getClients } from '../../lib/content';
+const clients = getClients().length;
+---
+<section class="statement wrap">
+  <p class="stmt" data-fill>כבר ארבעה עשורים אנחנו מתכננים את הבניינים שבהם אנשים גרים, עובדים ומתפללים. מווילה פרטית ועד מגדל של שלושים קומות, כל פרויקט מתחיל בקו אחד על הנייר.</p>
+  <div class="facts">
+    <div class="fact"><b data-to="1978" data-from="1950">1978</b><span>שנת ההקמה</span></div>
+    <div class="fact"><b data-to="25">25</b><span>אדריכלים, הנדסאים ומדמי״ם</span></div>
+    <div class="fact"><b data-to={clients}>{clients}</b><span>יזמים וגופים ציבוריים שעבדו איתנו</span></div>
+  </div>
+  <a class="more-link" href="/about">הסיפור שלנו <span class="arr">→</span></a>
+</section>
+<style is:global>
+  .statement .stmt{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.8vw,58px);line-height:1.25;max-width:24ch}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:clamp(48px,7vw,96px) 0 40px;max-width:1100px}
+  .fact{border-top:1px solid rgba(15,44,63,.2);padding-top:16px;position:relative}
+  .fact:before{content:"";position:absolute;top:-1px;right:0;height:1px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:right}
+  .fact.on:before{transform:scaleX(1);transition:transform 1.4s cubic-bezier(.2,.7,.2,1) .2s}
+  .fact b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(44px,5vw,76px);line-height:1;font-variant-numeric:tabular-nums}
+  .fact span{color:var(--muted);font-size:15px}
+  @media (max-width:820px){.facts{grid-template-columns:1fr;gap:28px}}
+</style>

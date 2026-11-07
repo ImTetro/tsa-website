@@ -1,9 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getProjects, getTeam, getClients } from '../lib/content';
-const ps = getProjects();
-console.log(`[content] ${ps.length} projects, ${getTeam().staff.length} staff, ${getClients().length} clients`);
+import HeroBuild from '../components/home/HeroBuild.astro';
+import Statement from '../components/home/Statement.astro';
+import FeaturedGrid from '../components/home/FeaturedGrid.astro';
+import CategoryScroller from '../components/home/CategoryScroller.astro';
+import SketchCompare from '../components/home/SketchCompare.astro';
+import TeamTeaser from '../components/home/TeamTeaser.astro';
+import ClientMarquee from '../components/home/ClientMarquee.astro';
+import ContactBlock from '../components/home/ContactBlock.astro';
+import { photo } from '../lib/content';
 ---
-<Base title="טטרו שחר אדריכלים" description="משרד אדריכלים ותכנון ערים בנתניה מאז 1978.">
-  <section class="wrap"><h1 class="h1">בבנייה</h1><ul>{ps.map((p) => <li>{p.title} – {p.categoryLabel} ({p.images.length})</li>)}</ul></section>
+<Base title="טטרו שחר אדריכלים" description="טטרו שחר אדריכלים – משרד אדריכלים ותכנון ערים בנתניה מאז 1978. מגדלי מגורים, התחדשות עירונית, מסחר, משרדים, וילות ובתי כנסת.">
+  <HeroBuild />
+  <Statement />
+  <FeaturedGrid />
+  <CategoryScroller />
+  <SketchCompare sketch={photo('src/assets/photos/urban-renewal/ur-sketch.jpg')} render={photo('src/assets/photos/towers/גד מכנס.jpg')} />
+  <TeamTeaser />
+  <ClientMarquee />
+  <ContactBlock />
 </Base>
+
+<script>
+  import '../scripts/home';
+</script>

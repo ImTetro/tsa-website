@@ -1,0 +1,98 @@
+---
+import { getImage } from 'astro:assets';
+import { photo, featuredProjects } from '../../lib/content';
+
+const tower = await getImage({ src: photo('src/assets/photos/towers/05.jpg'), width: 1200, format: 'webp' });
+const slides = await Promise.all(
+  featuredProjects().slice(0, 4).map(async (p) => ({
+    title: p.title,
+    sub: [p.urbanRenewal ? 'התחדשות עירונית' : p.categoryLabel, p.city].filter(Boolean).join(' · '),
+    url: p.url,
+    img: (await getImage({ src: p.cover, width: 2000, format: 'webp' })).src,
+  })),
+);
+const caps = [{ title: 'מגדל מגורים', sub: 'מגדלים ומגורים', url: '/projects/towers' }, ...slides];
+---
+<link rel="preload" as="image" href={tower.src} slot="head" />
+<section class="hero" id="hero" data-hero data-caps={JSON.stringify(caps)}>
+  <div class="hero-blueprint"></div>
+  <div class="hero-sky"></div>
+  <div class="hero-stage">
+    <svg id="bld" viewBox="0 48 1050 1302" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+      <defs>
+        <clipPath id="sil"><path d="M390,1330 L388,1000 C380,920 350,880 350,830 L345,345 L497,125 L548,128 L685,240 L690,820 C700,900 745,940 748,1020 L752,1330 Z" /></clipPath>
+        <clipPath id="reveal"><rect id="revealRect" x="0" y="48" width="1050" height="1304" /></clipPath>
+        <linearGradient id="fadeG" x1="0" x2="1"><stop offset="0" stop-color="#000" /><stop offset=".3" stop-color="#fff" /><stop offset=".72" stop-color="#fff" /><stop offset=".95" stop-color="#000" /></linearGradient>
+        <linearGradient id="fadeV" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#000" /><stop offset=".08" stop-color="#fff" /><stop offset="1" stop-color="#fff" /></linearGradient>
+        <mask id="soft"><rect x="0" y="48" width="1050" height="1302" fill="url(#fadeG)" /></mask>
+        <mask id="softV"><rect x="0" y="48" width="1050" height="1302" fill="url(#fadeV)" /></mask>
+      </defs>
+      <g clip-path="url(#reveal)" mask="url(#soft)"><g mask="url(#softV)"><image href={tower.src} x="0" y="0" width="1050" height="1400" /></g></g>
+      <g class="lines" id="lines">
+        <line id="ground" x1="40" y1="1330" x2="1010" y2="1330" />
+        <path id="foot" class="foot" d="M390,1330 L752,1330 L700,1300 L420,1300 Z" />
+        <g clip-path="url(#sil)" id="floors"></g>
+        <g clip-path="url(#sil)" id="ribs"></g>
+        <path id="outline" d="M390,1330 L388,1000 C380,920 350,880 350,830 L345,345 L497,125 L548,128 L685,240 L690,820 C700,900 745,940 748,1020 L752,1330 Z" />
+        <path id="corner" d="M497,125 L497,780 C500,880 560,920 560,1010 L560,1330" />
+        <g id="crane"><line id="mast" x1="880" y1="1330" x2="880" y2="1330" />
+          <g id="jib"><line x1="560" y1="0" x2="960" y2="0" /><line x1="880" y1="0" x2="880" y2="-46" /><line x1="880" y1="-46" x2="600" y2="0" /><line x1="880" y1="-46" x2="960" y2="0" /><line x1="640" y1="0" x2="640" y2="60" /></g></g>
+      </g>
+      <line class="scan" id="scan" x1="300" x2="800" y1="1350" y2="1350" />
+    </svg>
+  </div>
+  {slides.map((s) => <div class="slide" style={`background-image:url("${s.img}")`}></div>)}
+  <div class="shade" id="shade"></div>
+
+  <div class="counter" id="counter" aria-hidden="true">קומה<strong id="floorNo">00</strong></div>
+  <button class="skip" id="skip" type="button">דלג</button>
+  <div class="copy">
+    <h1 id="h1"><span class="w"><span>מתכננים</span></span> <span class="w"><span>את</span></span> <span class="w"><span>העיר</span></span><br /><span class="w"><span>מאז</span></span> <span class="w"><span>1978</span></span></h1>
+    <p class="tag" id="tag">משרד אדריכלים ותכנון ערים בנתניה. מגדלי מגורים, פינוי-בינוי, מסחר, משרדים, וילות ובתי כנסת.</p>
+    <div class="hero-ctas" id="ctas">
+      <a class="btn sand mag" href="/projects"><span>לפרויקטים שלנו</span></a>
+      <a class="btn ghost" href="/contact"><span>צרו קשר</span></a>
+    </div>
+  </div>
+  <a class="caption" id="caption" href={caps[0].url}><span id="capText"><b>{caps[0].title}</b>&nbsp; {caps[0].sub}</span><span class="bars" id="bars">{caps.map(() => <i><span></span></i>)}</span></a>
+</section>
+
+<style is:global>
+  .hero{position:relative;height:100vh;height:100svh;min-height:600px;overflow:hidden;background:var(--ink);color:#fff}
+  .hero-blueprint{position:absolute;inset:0;opacity:0;background-image:linear-gradient(rgba(156,195,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(156,195,230,.09) 1px,transparent 1px);background-size:48px 48px}
+  .hero-sky{position:absolute;inset:0;background:linear-gradient(180deg,#3c6b95 0%,#4e8abe 25%,#5b98c7 50%,#8cb5d3 76%,#b9c4c9 92%,#8d8a86 100%)}
+  .hero-stage{position:absolute;inset:0}
+  #bld{position:absolute;bottom:0;left:4vw;height:100%;width:auto;max-width:92vw;overflow:visible}
+  #bld .lines{opacity:0}
+  #bld .lines path,#bld .lines line{fill:none;stroke:var(--line);stroke-width:2;vector-effect:non-scaling-stroke}
+  #bld .floor{stroke-width:1;opacity:0}#bld .rib{stroke-width:1.2}#bld .foot{stroke-dasharray:6 6}
+  #bld .scan{stroke:#fff;stroke-width:2;vector-effect:non-scaling-stroke;opacity:0}
+  .hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;clip-path:inset(0 0 0 100%)}
+  .hero .shade{position:absolute;inset:0;z-index:3;pointer-events:none;
+    background:linear-gradient(270deg,rgba(10,30,44,.78) 0%,rgba(10,30,44,.55) 30%,rgba(10,30,44,0) 62%),linear-gradient(0deg,rgba(10,30,44,.7) 0%,rgba(10,30,44,0) 34%)}
+  .hero .copy{position:absolute;z-index:4;right:clamp(16px,6vw,96px);bottom:clamp(110px,17vh,180px);max-width:min(780px,88vw);text-shadow:0 2px 30px rgba(5,20,30,.35)}
+  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,7.4vw,112px);line-height:.98}
+  .hero .tag{margin-top:18px;font-size:clamp(15px,1.3vw,18px);max-width:40ch;line-height:1.6}
+  .hero-ctas{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;text-shadow:none}
+  .hero .caption{position:absolute;z-index:4;left:var(--pad);bottom:clamp(28px,5vh,48px);display:flex;align-items:center;gap:16px;font-size:14px;
+    background:rgba(10,30,44,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 16px;border-radius:40px}
+  .hero .caption b{font-weight:600}
+  .hero .bars{display:flex;gap:6px}
+  .hero .bars i{width:28px;height:2px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
+  .hero .bars i span{position:absolute;inset:0;background:#fff;transform-origin:right;transform:scaleX(0)}
+  .hero .counter{position:absolute;z-index:4;right:clamp(16px,6vw,96px);top:42%;font-size:13px;color:var(--line);opacity:0;pointer-events:none}
+  .hero .counter strong{display:block;font-family:var(--serif);font-weight:300;font-size:72px;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+  .hero .skip{position:absolute;z-index:6;left:var(--pad);top:calc(var(--header-h) + 8px);background:none;border:1px solid rgba(156,195,230,.5);color:var(--line);font-size:13px;padding:6px 14px;border-radius:20px;cursor:pointer;display:none}
+  @media (max-width:820px){
+    #bld{left:50%;transform:translateX(-50%);top:calc(var(--header-h) - 8px);bottom:auto;height:58%}
+    .hero .shade{background:linear-gradient(0deg,rgba(10,30,44,.95) 0%,rgba(10,30,44,.82) 40%,rgba(10,30,44,0) 64%)}
+    .hero .counter{top:calc(var(--header-h) + 4px);right:16px}.hero .counter strong{font-size:44px}
+    .hero .copy{right:16px;left:16px;bottom:96px}.hero h1{font-size:42px}.hero .tag{font-size:15px;margin-top:10px}
+    .hero-ctas{margin-top:16px}.hero-ctas .btn{padding:12px 20px;font-size:15px}
+    .hero .caption{left:16px;right:16px;bottom:24px;justify-content:space-between}
+  }
+</style>
+
+<script>
+  import '../../scripts/hero';
+</script>

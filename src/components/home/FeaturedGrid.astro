@@ -1,0 +1,36 @@
+---
+import ProjectCard from '../ProjectCard.astro';
+import { getProjects, featuredProjects, CATEGORIES } from '../../lib/content';
+// featured first, then make sure every category has a card so each chip shows something
+const all = getProjects();
+const list = [...featuredProjects()];
+for (const c of CATEGORIES) {
+  if (!list.some((p) => p.category === c.key)) {
+    const p = all.find((x) => x.category === c.key && !x.placeholder) ?? all.find((x) => x.category === c.key);
+    if (p) list.push(p);
+  }
+}
+for (const p of all) { if (list.length >= 9) break; if (!p.placeholder && !list.includes(p)) list.push(p); }
+const cards = list.slice(0, 9);
+const WIDE = new Set([0, 4, 8]);
+const present = CATEGORIES.filter((c) => cards.some((p) => p.category === c.key));
+---
+<section class="projects wrap on-stone">
+  <div class="section-head">
+    <h2 class="h2 split">פרויקטים נבחרים</h2>
+    <div class="chips" role="group" aria-label="סינון פרויקטים">
+      <button class="chip" type="button" aria-pressed="true" data-f="all">הכל</button>
+      {present.map((c) => <button class="chip" type="button" aria-pressed="false" data-f={c.key}>{c.label}</button>)}
+    </div>
+  </div>
+  <div class="grid" id="featured-grid">
+    {cards.map((p, i) => <ProjectCard project={p} wide={WIDE.has(i)} />)}
+  </div>
+  <div class="projects-more"><a class="btn mag" href="/projects"><span>לכל הפרויקטים</span></a></div>
+</section>
+<style is:global>
+  .projects{padding-bottom:clamp(110px,16vw,220px)}
+  .projects .section-head{margin-bottom:36px}
+  #featured-grid{grid-auto-flow:dense}
+  .projects-more{margin-top:40px;display:flex;justify-content:center}
+</style>

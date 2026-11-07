@@ -1,0 +1,12 @@
+---
+import { Picture } from 'astro:assets';
+import type { Project } from '../lib/content';
+interface Props { project: Project; wide?: boolean; eager?: boolean }
+const { project: p, wide, eager } = Astro.props;
+---
+<a class:list={['card', { wide }]} href={p.url} data-c={p.category} data-title={p.title}>
+  <div class="ph">
+    <Picture src={p.cover} alt="" widths={[480, 800, 1200]} sizes={wide ? '(max-width:820px) 100vw, 66vw' : '(max-width:820px) 100vw, 33vw'} formats={['avif', 'webp']} loading={eager ? 'eager' : 'lazy'} />
+  </div>
+  <div class="info"><b>{p.title}</b><small>{p.urbanRenewal ? 'התחדשות עירונית' : p.categoryLabel}{p.city ? ` · ${p.city}` : ''}</small></div>
+</a>
