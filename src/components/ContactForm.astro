@@ -1,0 +1,85 @@
+---
+import { SITE } from '../site';
+interface Props { variant?: 'general' | 'residents'; project?: string }
+const { variant = 'general', project = '' } = Astro.props;
+const key = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const types = ['מגדל / בניין מגורים', 'התחדשות עירונית', 'מסחר', 'משרדים', 'וילה / בית פרטי', 'בית כנסת / מבנה ציבור', 'אחר'];
+---
+<form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate data-variant={variant} data-key={key}>
+  {!key && <p class="form-note" role="note">טופס בהגדרה – התקשרו <a href={`tel:${SITE.phones[0].replace(/\D/g, '')}`} dir="ltr">{SITE.phones[0]}</a></p>}
+
+  <fieldset class="variant-switch" aria-label="סוג הפנייה">
+    <label><input type="radio" name="_variant" value="general" checked={variant === 'general'} /><span>פנייה כללית</span></label>
+    <label><input type="radio" name="_variant" value="residents" checked={variant === 'residents'} /><span>נציגות דיירים</span></label>
+  </fieldset>
+
+  <input type="hidden" name="access_key" value={key} />
+  <input type="hidden" name="subject" value="פנייה חדשה מאתר טטרו שחר" />
+  <input type="hidden" name="from_name" value="אתר טטרו שחר אדריכלים" />
+  <input type="hidden" name="project" value={project} />
+  <div class="hp" aria-hidden="true"><label>אל תמלאו שדה זה<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label></div>
+
+  <div class="row2">
+    <div class="field">
+      <input id="cf-name" name="name" type="text" placeholder=" " autocomplete="name" required aria-describedby="cf-name-err" />
+      <label for="cf-name" data-general="שם מלא *" data-residents="שם איש הקשר בנציגות *">{variant === 'residents' ? 'שם איש הקשר בנציגות *' : 'שם מלא *'}</label>
+      <span class="err" id="cf-name-err" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <input id="cf-phone" name="phone" type="tel" inputmode="tel" placeholder=" " autocomplete="tel" required dir="ltr" aria-describedby="cf-phone-err" />
+      <label for="cf-phone">טלפון *</label>
+      <span class="err" id="cf-phone-err" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <div class="v-general row2" hidden={variant !== 'general'}>
+    <div class="field">
+      <input id="cf-email" name="email" type="email" placeholder=" " autocomplete="email" dir="ltr" aria-describedby="cf-email-err" />
+      <label for="cf-email">אימייל</label>
+      <span class="err" id="cf-email-err" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <select id="cf-type" name="project_type">
+        <option value="">בחרו</option>
+        {types.map((t) => <option value={t}>{t}</option>)}
+      </select>
+      <label for="cf-type">סוג הפרויקט</label>
+    </div>
+  </div>
+
+  <div class="v-residents row2" hidden={variant !== 'residents'}>
+    <div class="field">
+      <input id="cf-address" name="building_address" type="text" placeholder=" " autocomplete="street-address" aria-describedby="cf-address-err" />
+      <label for="cf-address">כתובת הבניין *</label>
+      <span class="err" id="cf-address-err" aria-live="polite"></span>
+    </div>
+    <div class="field">
+      <input id="cf-units" name="apartments" type="number" min="1" inputmode="numeric" placeholder=" " />
+      <label for="cf-units">מספר דירות בבניין</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <textarea id="cf-message" name="message" rows="4" placeholder=" "></textarea>
+    <label for="cf-message">הודעה</label>
+  </div>
+
+  <div class="form-foot">
+    <button class="btn sand mag" type="submit"><span>שליחה</span></button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+<style is:global>
+  .variant-switch{border:0;padding:0;margin:0;display:flex;gap:8px;flex-wrap:wrap}
+  .variant-switch label{cursor:pointer}
+  .variant-switch input{position:absolute;opacity:0;pointer-events:none}
+  .variant-switch span{display:inline-block;border:1px solid currentColor;border-radius:40px;padding:8px 18px;font-size:15px;opacity:.75;transition:background .25s,color .25s,opacity .25s}
+  .variant-switch input:checked+span{background:var(--sand);border-color:var(--sand);color:var(--ink);opacity:1}
+  .variant-switch input:focus-visible+span{outline:2px solid var(--sand);outline-offset:3px}
+  .form-foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .form [hidden]{display:none!important}
+  .field select~label{top:0;font-size:12px}
+</style>
+<script>
+  import '../scripts/form';
+</script>

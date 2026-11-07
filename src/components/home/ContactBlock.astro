@@ -23,9 +23,5 @@ const lead = variant === 'residents'
 <style is:global>
   .cb-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(32px,5vw,80px);align-items:end}
   .cb-info{display:grid;gap:4px}
-  .cb-line{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid rgba(255,255,255,.18);padding:18px 0;transition:padding .3s var(--ease)}
-  .cb-line:hover{padding-inline-start:10px}
-  .cb-line small{color:var(--muted-on-ink);font-size:14px}
-  .cb-line b{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.4vw,36px)}
   @media (max-width:820px){.cb-grid{grid-template-columns:1fr}}
 </style>
