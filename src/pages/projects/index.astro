@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProjectsBrowser from '../../components/ProjectsBrowser.astro';
+import ContactBlock from '../../components/home/ContactBlock.astro';
+import { getProjects, featuredProjects } from '../../lib/content';
+const all = getProjects();
+const hero = (featuredProjects()[0] ?? all[0])?.cover;
+---
+<Base title="פרויקטים" description="תיק העבודות של טטרו שחר אדריכלים: מגדלי מגורים, התחדשות עירונית, מסחר, משרדים, וילות ובתי כנסת.">
+  <PageHero title="פרויקטים" kicker="תיק עבודות" lead="מבחר מהפרויקטים שתכננו לאורך יותר מארבעה עשורים. סננו לפי תחום, או עברו לתצוגת רשימה." image={hero} crumbs={[{ label: 'פרויקטים' }]} short />
+  <ProjectsBrowser projects={all} active="all" />
+  <ContactBlock />
+</Base>

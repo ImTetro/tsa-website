@@ -6,7 +6,7 @@ import clients from '../data/clients.json';
 import { groupProjects, type ManifestEntry, type ProjectDetails, type RawProject } from './group';
 import { CATEGORIES, type Category } from './categories';
 
-export { CATEGORIES, categoryByKey, type Category } from './categories';
+export { CATEGORIES, categoryByKey, type Category, type CategoryInfo } from './categories';
 export { slugify, groupProjects } from './group';
 
 const photos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/photos/**/*.{jpg,jpeg,png,JPG,PNG,webp}', { eager: true });
