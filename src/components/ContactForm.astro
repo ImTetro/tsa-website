@@ -17,6 +17,7 @@ const types = ['מגדל / בניין מגורים', 'התחדשות עירונ�
   <input type="hidden" name="subject" value="פנייה חדשה מאתר טטרו שחר" />
   <input type="hidden" name="from_name" value="אתר טטרו שחר אדריכלים" />
   <input type="hidden" name="project" value={project} />
+  <p class="form-project" id="cf-project-line" hidden={!project}>פנייה בנושא: <b id="cf-project-name">{project}</b></p>
   <div class="hp" aria-hidden="true"><label>אל תמלאו שדה זה<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" /></label></div>
 
   <div class="row2">
@@ -58,6 +59,10 @@ const types = ['מגדל / בניין מגורים', 'התחדשות עירונ�
       <label for="cf-units">מספר דירות בבניין</label>
     </div>
   </div>
+  <div class="v-residents field" hidden={variant !== 'residents'}>
+    <input id="cf-times" name="preferred_times" type="text" placeholder=" " />
+    <label for="cf-times">מועדים נוחים לפגישה</label>
+  </div>
 
   <div class="field">
     <textarea id="cf-message" name="message" rows="4" placeholder=" "></textarea>
@@ -76,6 +81,7 @@ const types = ['מגדל / בניין מגורים', 'התחדשות עירונ�
   .variant-switch span{display:inline-block;border:1px solid currentColor;border-radius:40px;padding:8px 18px;font-size:15px;opacity:.75;transition:background .25s,color .25s,opacity .25s}
   .variant-switch input:checked+span{background:var(--sand);border-color:var(--sand);color:var(--ink);opacity:1}
   .variant-switch input:focus-visible+span{outline:2px solid var(--sand);outline-offset:3px}
+  .form-project{font-size:15px;opacity:.85}.form-project b{font-weight:600}
   .form-foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
   .form [hidden]{display:none!important}
   .field select~label{top:0;font-size:12px}

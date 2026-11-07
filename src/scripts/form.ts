@@ -25,8 +25,8 @@ onPage(() => {
   const proj = q.get('project');
   if (proj) {
     $<HTMLInputElement>('input[name=project]', form)!.value = proj.slice(0, 120);
-    const msg = $<HTMLTextAreaElement>('#cf-message', form)!;
-    if (!msg.value) msg.placeholder = ' ';
+    $('#cf-project-name', form)!.textContent = proj.slice(0, 120);
+    $('#cf-project-line', form)!.hidden = false;
   }
 
   // ---- validation ----
@@ -66,7 +66,8 @@ onPage(() => {
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.success) throw new Error('send failed');
       form.reset();
-      const keep = $<HTMLInputElement>('input[name=project]', form); if (keep) keep.value = '';
+      // reset() restores the page's own project (project pages) and keeps the visible line in sync
+      $('#cf-project-line', form)!.hidden = !$<HTMLInputElement>('input[name=project]', form)!.value;
       delete form.dataset.tried;
       setVariant(residents ? 'residents' : 'general');
       status.className = 'form-status ok'; status.textContent = 'תודה! נחזור אליכם בהקדם';

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, test, expect } from 'vitest';
 import { groupProjects, slugify, type ManifestEntry } from '../src/lib/group';
 
 const img = (file: string, category: string, project = '', use = ''): ManifestEntry =>
@@ -63,5 +63,18 @@ describe('slugify', () => {
   });
   it('keeps latin and digits', () => {
     expect(slugify('מרינה 408')).toBe('marina-408');
+  });
+});
+
+describe('hand-edited data does not crash the build', () => {
+  const row = (o: Partial<ManifestEntry>): ManifestEntry => ({ file: 'f.jpg', original_name: 'f', wix_id: 'x', source_page: '', category: 'villas', project: '', use: '', kb: 1, ...o });
+  test('missing or null project goes to the placeholder', () => {
+    const { projects } = groupProjects([row({ project: undefined as any }), row({ file: 'g.jpg', project: null as any })], {});
+    expect(projects).toHaveLength(1);
+    expect(projects[0].placeholder).toBe(true);
+  });
+  test('unknown category in details falls back to the image folder category', () => {
+    const { projects } = groupProjects([row({ project: 'X' })], { X: { category: 'vilas' as any } });
+    expect(projects[0].category).toBe('villas');
   });
 });

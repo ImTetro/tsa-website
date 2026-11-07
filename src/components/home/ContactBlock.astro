@@ -1,27 +1,28 @@
 ---
 import { SITE, tel } from '../../site';
+import ContactForm from '../ContactForm.astro';
 interface Props { project?: string; variant?: 'general' | 'residents' }
 const { project, variant = 'general' } = Astro.props;
-const href = variant === 'residents' ? '/contact?subject=urban' : project ? `/contact?project=${encodeURIComponent(project)}` : '/contact';
+const title = variant === 'residents' ? 'נציגות דיירים?<br />בואו ניפגש.' : 'יש לכם פרויקט?<br />בואו נדבר.';
 const lead = variant === 'residents'
-  ? 'נציגות דיירים? נשמח להיפגש, להסביר את התהליך ולבדוק את ההיתכנות של הבניין שלכם.'
+  ? 'נשמח להיפגש עם נציגות הבניין, להסביר את התהליך ולבדוק את ההיתכנות של הבניין שלכם.'
   : project ? `רוצים לשמוע עוד על ${project} או על פרויקט דומה? השאירו פרטים ונחזור אליכם.` : 'יזמים, נציגויות דיירים ובעלי מגרשים: ספרו לנו על הפרויקט ונחזור אליכם.';
 ---
 <section class="wrap on-ink contact-block blueprint-bg">
   <div class="cb-grid">
-    <div>
-      <h2 class="h2 split">יש לכם פרויקט?<br />בואו נדבר.</h2>
+    <div class="cb-side">
+      <h2 class="h2 split" set:html={title} />
       <p class="lead" style="margin-top:20px">{lead}</p>
-      <a class="btn sand mag" href={href} style="margin-top:28px"><span>להשארת פרטים</span></a>
+      <div class="cb-info" data-reveal="children">
+        {SITE.phones.map((p) => <a href={tel(p)} class="cb-line"><small>טלפון</small><b dir="ltr">{p}</b></a>)}
+        <a href={SITE.wazeUrl} target="_blank" rel="noopener" class="cb-line"><small>כתובת</small><b>{SITE.address}</b></a>
+      </div>
     </div>
-    <div class="cb-info" data-reveal="children">
-      {SITE.phones.map((p) => <a href={tel(p)} class="cb-line"><small>טלפון</small><b dir="ltr">{p}</b></a>)}
-      <a href={SITE.wazeUrl} target="_blank" rel="noopener" class="cb-line"><small>כתובת</small><b>{SITE.address}</b></a>
-    </div>
+    <ContactForm variant={variant} project={project} />
   </div>
 </section>
 <style is:global>
-  .cb-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(32px,5vw,80px);align-items:end}
-  .cb-info{display:grid;gap:4px}
+  .cb-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,5vw,80px);align-items:start}
+  .cb-info{display:grid;gap:4px;margin-top:28px}
   @media (max-width:820px){.cb-grid{grid-template-columns:1fr}}
 </style>

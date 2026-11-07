@@ -31,7 +31,9 @@ let cache: Project[] | null = null;
 export function getProjects(): Project[] {
   if (cache) return cache;
   const { projects, dropped } = groupProjects(manifest as ManifestEntry[], details as Record<string, ProjectDetails>);
-  void dropped; // team/clients/home images live in the manifest too; they are not projects
+  // team/clients/home/brand images live in the manifest too; anything else that was dropped is probably a typo
+  const odd = dropped.filter((f) => !/\/(team|clients|home|projects|brand)\//.test(f));
+  if (odd.length) console.warn(`[content] ${odd.length} image(s) in assets/images.json have an unknown category and are not shown: ${odd.join(', ')}`);
   cache = projects
     .map((p) => ({
       ...p,

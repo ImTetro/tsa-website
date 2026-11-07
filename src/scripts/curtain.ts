@@ -13,8 +13,8 @@ onPage(() => {
   if (!curtain || !title) return;
 
   if (document.documentElement.classList.contains('curtain-in')) {
-    const t = sessionStorage.getItem(KEY) || '';
-    sessionStorage.removeItem(KEY);
+    let t = '';
+    try { t = sessionStorage.getItem(KEY) || ''; sessionStorage.removeItem(KEY); } catch { /* storage blocked */ }
     title.textContent = t;
     gsap.set(curtain, { scaleY: 1, transformOrigin: 'top' });
     gsap.set(title, { opacity: t ? 1 : 0 });
@@ -32,9 +32,10 @@ onPage(() => {
     const url = new URL(a.href, location.href);
     if (url.origin !== location.origin || url.protocol.startsWith('tel') || (url.pathname === location.pathname && url.hash)) return;
     if (url.pathname === location.pathname && url.search === location.search) return;
-    e.preventDefault();
     const label = a.dataset.title || a.querySelector('b')?.textContent || a.textContent?.trim() || '';
-    sessionStorage.setItem(KEY, label.slice(0, 60));
+    // storage can be blocked (privacy settings): then just navigate normally, no curtain
+    try { sessionStorage.setItem(KEY, label.slice(0, 60)); } catch { return; }
+    e.preventDefault();
     title.textContent = label;
     gsap.timeline({ onComplete: () => { location.href = url.href; } })
       .set(curtain, { transformOrigin: 'bottom', pointerEvents: 'auto' })

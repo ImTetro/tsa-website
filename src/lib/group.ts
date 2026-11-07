@@ -98,8 +98,9 @@ export function groupProjects(manifest: ManifestEntry[], details: Record<string,
     const page = PAGE_TO_CATEGORY[e.category];
     if (!page) { dropped.push(e.file); continue; }
     if (e.use === 'skip') continue;
-    const placeholder = !e.project.trim();
-    const key = placeholder ? `__more:${page.category}` : e.project.trim();
+    const name = (e.project ?? '').trim();
+    const placeholder = !name;
+    const key = placeholder ? `__more:${page.category}` : name;
     if (!groups.has(key)) groups.set(key, { title: placeholder ? placeholderTitle(page.category) : key, placeholder, images: [], first: page });
     groups.get(key)!.images.push(e.file);
   }
@@ -109,7 +110,8 @@ export function groupProjects(manifest: ManifestEntry[], details: Record<string,
   for (const g of groups.values()) {
     if (!g.images.length) continue;
     const d = g.placeholder ? {} : details[g.title] ?? {};
-    const category = d.category ?? g.first.category;
+    // a typo'd category in projects.json must not break the build: fall back to the image folder's category
+    const category = d.category && CATEGORIES.some((c) => c.key === d.category) ? d.category : g.first.category;
     let slug = g.placeholder ? 'more' : slugify(g.title);
     if (used.has(`${category}/${slug}`)) { let n = 2; while (used.has(`${category}/${slug}-${n}`)) n++; slug = `${slug}-${n}`; }
     used.add(`${category}/${slug}`);
