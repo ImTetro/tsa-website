@@ -1,0 +1,9 @@
+---
+import { SITE, tel } from '../site';
+---
+<div class="sticky-contact" aria-label="יצירת קשר מהירה">
+  <a class="a1" href={tel(SITE.phones[0])}>התקשרו</a>
+  {SITE.whatsapp
+    ? <a class="a2" href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener">וואטסאפ</a>
+    : <a class="a2" href="/contact">השאירו פרטים</a>}
+</div>

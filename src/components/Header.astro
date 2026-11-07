@@ -1,0 +1,28 @@
+---
+import logoLight from '../assets/brand/logo-light.png';
+import logoDark from '../assets/brand/logo-dark.png';
+import { NAV } from '../site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(href + '/'));
+---
+<header class="site-header" id="site-header">
+  <a class="logo" href="/" aria-label="טטרו שחר אדריכלים – דף הבית">
+    <img class="lg-light" src={logoLight.src} width={logoLight.width} height={logoLight.height} alt="טטרו שחר אדריכלים בע״מ" />
+    <img class="lg-dark" src={logoDark.src} width={logoDark.width} height={logoDark.height} alt="" aria-hidden="true" />
+  </a>
+  <nav class="main-nav" aria-label="ניווט ראשי">
+    <ul>
+      {NAV.map((item) => (
+        <li class={item.children ? 'has-sub' : undefined}>
+          <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined} aria-haspopup={item.children ? 'true' : undefined}>{item.label}</a>
+          {item.children && (
+            <ul class="sub">
+              {item.children.map((c) => <li><a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a></li>)}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <button class="burger" id="burger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+</header>

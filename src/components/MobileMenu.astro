@@ -1,0 +1,22 @@
+---
+import { NAV, SITE, tel } from '../site';
+---
+<div class="mobile-menu blueprint-bg" id="mobile-menu" inert>
+  <nav aria-label="ניווט ראשי (נייד)">
+    <ul>
+      <li><a href="/">דף הבית</a></li>
+      {NAV.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+          {item.children && (
+            <div class="subcats">{item.children.slice(1).map((c) => <a href={c.href}>{c.label}</a>)}</div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <div class="m-contact">
+    {SITE.phones.map((p) => <a href={tel(p)}>{p}</a>)}
+    <span>{SITE.address}</span>
+  </div>
+</div>
