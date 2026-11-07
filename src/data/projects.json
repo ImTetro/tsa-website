@@ -1,0 +1,72 @@
+{
+  "גד מכנס": {
+    "category": "towers",
+    "urbanRenewal": true,
+    "featured": true
+  },
+  "שדרות ירושלים": {
+    "category": "towers",
+    "urbanRenewal": true
+  },
+  "סמילנסקי – בן יהודה": {
+    "category": "towers",
+    "urbanRenewal": true
+  },
+  "אוסישקין": {
+    "category": "towers",
+    "urbanRenewal": true,
+    "city": "נתניה"
+  },
+  "דנקנר 9": {
+    "category": "towers",
+    "urbanRenewal": true
+  },
+  "וילת מנשרוב": {
+    "category": "villas"
+  },
+  "נט 600": {
+    "category": "villas"
+  },
+  "וילת סגל": {
+    "category": "villas",
+    "featured": true
+  },
+  "הרי גרינטל 4": {
+    "category": "towers"
+  },
+  "לגונה": {
+    "category": "commercial",
+    "city": "נתניה",
+    "featured": true
+  },
+  "מרינה 408": {
+    "category": "commercial",
+    "featured": true
+  },
+  "טיטניום בוטיק": {
+    "category": "offices",
+    "featured": true
+  },
+  "מלון": {
+    "category": "commercial"
+  },
+  "פרויקט יהלום": {
+    "category": "commercial"
+  },
+  "פריים סנטר פתח תקווה": {
+    "category": "offices",
+    "city": "פתח תקווה"
+  },
+  "הרצל 17": {
+    "category": "offices"
+  },
+  "בית כנסת נתניה": {
+    "category": "synagogues",
+    "city": "נתניה"
+  },
+  "בית כנסת עיר ימים": {
+    "category": "synagogues",
+    "city": "נתניה",
+    "featured": true
+  }
+}
