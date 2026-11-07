@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/gen-redirects.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
