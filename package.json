@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "prebuild": "node scripts/gen-redirects.mjs",
     "build": "astro build",
+    "postbuild": "node scripts/apply-base.mjs",
     "preview": "astro preview",
     "test": "vitest run",
     "e2e": "node tests/e2e/run.mjs"
@@ -20,6 +21,7 @@
     "lenis": "^1.3.27"
   },
   "devDependencies": {
+    "esbuild": "^0.27.7",
     "playwright-core": "^1.49.1",
     "typescript": "^5.9.3",
     "vitest": "^5.1.0"
