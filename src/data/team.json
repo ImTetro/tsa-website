@@ -24,7 +24,7 @@
   "staff": [
     {
       "name": "בני פרדו",
-      "role": "אדריכל בכיר",
+      "role": "מנכ״ל, תיאום תכנון ורישוי",
       "photo": "src/assets/photos/team/19b9e7_d61c3e095c0d43869102e753e04a0cb8~mv2.jpg"
     },
     {
@@ -34,7 +34,7 @@
     },
     {
       "name": "מיכאל פיצ'חדזה",
-      "role": "תיאום תכנון ורישוי",
+      "role": "אדריכל בכיר",
       "photo": "src/assets/photos/team/19b9e7_224a830941ed4dde933632d94e0253b5~mv2.png"
     },
     {
@@ -65,12 +65,12 @@
     {
       "name": "שלומי טפירו",
       "role": "אדריכל",
-      "photo": "src/assets/photos/team/19b9e7_df345f8e23334158a493644afc40b2cd~mv2.jpeg"
+      "photo": "src/assets/photos/team/19b9e7_f78931ed14d44f7fa45d161f3f3a3230~mv2.jpeg"
     },
     {
       "name": "אלכסנדרה רוזנבוים",
       "role": "אדריכלית",
-      "photo": null
+      "photo": "src/assets/photos/team/19b9e7_df345f8e23334158a493644afc40b2cd~mv2.jpeg"
     },
     {
       "name": "גלית דיאמנט",
@@ -80,19 +80,15 @@
     {
       "name": "נטלי וייצמן",
       "role": "מנהלת אדמיניסטרטיבית",
-      "photo": null
+      "photo": "src/assets/photos/team/19b9e7_edbcfa546b4a4d57a99d33f3a7a782e5~mv2.png"
     },
     {
       "name": "אפק טטרו",
       "role": "אחראי מחשוב",
-      "photo": null
+      "photo": "src/assets/photos/team/19b9e7_d522b0101a7c4f5dbd76a084a8e005be~mv2.png"
     }
   ],
   "closing": "הצוות שלנו כולל את מיטב האדריכלים, המאמינים בדרכו של המשרד ונותנים מענה מקיף ומפורט לכל לקוח, עם שירות ברמה הגבוהה ביותר.",
-  "unassignedPhotos": [
-    "src/assets/photos/team/19b9e7_f78931ed14d44f7fa45d161f3f3a3230~mv2.jpeg",
-    "src/assets/photos/team/19b9e7_edbcfa546b4a4d57a99d33f3a7a782e5~mv2.png",
-    "src/assets/photos/team/19b9e7_d522b0101a7c4f5dbd76a084a8e005be~mv2.png"
-  ],
+  "unassignedPhotos": [],
   "_note": "To show a photo for someone, move a path from unassignedPhotos into their 'photo'. Michael's role should be confirmed."
 }

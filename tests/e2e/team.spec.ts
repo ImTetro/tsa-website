@@ -4,7 +4,8 @@ import { close, open } from './browser';
 afterAll(close);
 
 const team = JSON.parse(readFileSync(new URL('../../src/data/team.json', import.meta.url), 'utf8'));
-const people = [...team.partners, ...team.staff] as { name: string; role: string; photo: string | null }[];
+const people = [...team.partners, ...team.staff] as { name: string; role: string; photo: string }[];
+test("team data: every member has a photo", () => { for (const p of people) expect(p.photo, p.name).toBeTruthy(); });
 
 describe.each([[1440, 900], [390, 844]])('team page at %ix%i', (w, h) => {
   test('every team member shows name, role and photo (loaded, visible)', async () => {
@@ -25,7 +26,7 @@ describe.each([[1440, 900], [390, 844]])('team page at %ix%i', (w, h) => {
     for (const [i, p] of people.entries()) {
       const c = cards[i];
       expect(c.role, p.name).toBe(p.role);
-      if (p.photo) {
+      {
         expect(c.img, `${p.name} photo`).not.toBeNull();
         expect(c.img!.loaded, `${p.name} photo loaded`).toBe(true);
         expect(c.img!.w * c.img!.h, `${p.name} photo size`).toBeGreaterThan(5000);
