@@ -11,16 +11,16 @@ const { items } = Astro.props;
   ))}
 </div>
 <style is:global>
-  .accordion{border-top:1px solid rgba(15,44,63,.18)}
-  .accordion details{border-bottom:1px solid rgba(15,44,63,.18)}
+  .accordion{border-top:1px solid rgba(30,30,30,.18)}
+  .accordion details{border-bottom:1px solid rgba(30,30,30,.18)}
   .accordion summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-family:var(--serif);font-size:clamp(20px,2vw,26px)}
   .accordion summary::-webkit-details-marker{display:none}
   .accordion summary i{position:relative;flex:0 0 18px;height:18px}
   .accordion summary i:before,.accordion summary i:after{content:"";position:absolute;top:50%;right:0;width:18px;height:1.5px;background:currentColor;transition:transform .35s var(--ease)}
   .accordion summary i:after{transform:rotate(90deg)}
   .accordion details[open] summary i:after{transform:rotate(0)}
-  .accordion summary:hover{color:#9a7a4c}
-  .accordion summary:focus-visible{outline:2px solid var(--sand);outline-offset:4px}
+  .accordion summary:hover{color:#B90006}
+  .accordion summary:focus-visible{outline:2px solid var(--red);outline-offset:4px}
   .acc-body{padding:0 0 24px;max-width:70ch;line-height:1.75;color:var(--muted)}
   .accordion details[open] .acc-body{animation:acc-in .4s var(--ease)}
   @keyframes acc-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}

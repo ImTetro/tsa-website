@@ -26,15 +26,15 @@ const alt = (i: number) => `${title} – תמונה ${i + 1} מתוך ${images.l
 
 <style is:global>
   .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(8px,1.2vw,18px);grid-auto-flow:dense}
-  .g-item{position:relative;display:block;padding:0;border:0;background:#d6d4cf;cursor:zoom-in;overflow:hidden;aspect-ratio:4/3}
+  .g-item{position:relative;display:block;padding:0;border:0;background:#D2D2D2;cursor:zoom-in;overflow:hidden;aspect-ratio:4/3}
   .g-item.tall{grid-row:span 2;aspect-ratio:auto}
   .g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
   .g-item:hover img{transform:scale(1.04)}
-  .g-item:focus-visible{outline:3px solid var(--sand);outline-offset:3px}
+  .g-item:focus-visible{outline:3px solid var(--red);outline-offset:3px}
   .lightbox{border:0;padding:0;margin:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;background:rgba(6,18,27,.96);color:#fff;overflow:hidden}
   .lightbox::backdrop{background:rgba(6,18,27,.9)}
   .lb-top{position:absolute;top:0;right:0;left:0;display:flex;justify-content:space-between;align-items:center;padding:16px var(--pad);z-index:2}
-  .lb-count{font-size:15px;color:#cfdde6}.lb-count b{color:#fff;font-weight:600}
+  .lb-count{font-size:15px;color:#D6D6D6}.lb-count b{color:#fff;font-weight:600}
   .lb-close,.lb-nav{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;display:grid;place-items:center}
   .lb-close:hover,.lb-nav:hover{background:rgba(255,255,255,.22)}
   .lb-stage{position:absolute;inset:72px 76px;margin:0;display:grid;place-items:center;touch-action:pan-y}

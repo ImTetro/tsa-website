@@ -55,7 +55,7 @@ onPage(() => {
   // scroll-driven colour blend between a light section and the next dark one
   $$('[data-blend-to]').forEach((dark) => {
     const light = dark.previousElementSibling as HTMLElement | null;
-    const from = dark.dataset.blendFrom || '#E9E7E1', to = dark.dataset.blendTo!;
+    const from = dark.dataset.blendFrom || '#E6E6E6', to = dark.dataset.blendTo!;
     const st = { trigger: dark, start: 'top 95%', end: 'top 15%', scrub: true };
     gsap.fromTo([light, dark].filter(Boolean), { backgroundColor: from }, { backgroundColor: to, ease: 'power1.inOut', scrollTrigger: st });
     $$('[data-blend-text]', dark).forEach((t) => gsap.fromTo(t, { color: t.dataset.blendText!.split(',')[0] }, { color: t.dataset.blendText!.split(',')[1], ease: 'power1.inOut', scrollTrigger: st }));
