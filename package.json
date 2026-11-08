@@ -10,7 +10,8 @@
     "postbuild": "node scripts/apply-base.mjs",
     "preview": "astro preview",
     "test": "vitest run",
-    "e2e": "node tests/e2e/run.mjs"
+    "e2e": "node tests/e2e/run.mjs",
+    "deploy": "node scripts/deploy-pages.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
