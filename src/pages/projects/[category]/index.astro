@@ -1,0 +1,20 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import ProjectsBrowser from '../../../components/ProjectsBrowser.astro';
+import ContactBlock from '../../../components/home/ContactBlock.astro';
+import { CATEGORIES, projectsIn, type CategoryInfo } from '../../../lib/content';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((c) => ({ params: { category: c.slug }, props: { cat: c } }));
+}
+interface Props { cat: CategoryInfo }
+const { cat } = Astro.props;
+const list = projectsIn(cat.key);
+const hero = (list.find((p) => p.featured) ?? list.find((p) => !p.placeholder) ?? list[0])?.cover;
+---
+<Base title={cat.label} description={`${cat.label} – ${cat.intro}`}>
+  <PageHero title={cat.label} kicker="פרויקטים" lead={cat.intro} image={hero} crumbs={[{ label: 'פרויקטים', href: '/projects' }, { label: cat.label }]} short />
+  <ProjectsBrowser projects={list} active={cat.key} />
+  <ContactBlock />
+</Base>

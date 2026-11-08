@@ -1,0 +1,26 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Crumb { label: string; href?: string }
+interface Props { title: string; kicker?: string; lead?: string; image?: ImageMetadata; crumbs?: Crumb[]; short?: boolean }
+const { title, kicker, lead, image, crumbs = [], short } = Astro.props;
+const trail: Crumb[] = [{ label: 'דף הבית', href: '/' }, ...crumbs];
+---
+<section class:list={['page-hero', { short, plain: !image }]} data-hero>
+  {image && <div class="bg"><Picture src={image} alt="" widths={[800, 1400, 2200]} sizes="100vw" formats={['avif', 'webp']} loading="eager" fetchpriority="high" /></div>}
+  {image && <div class="scrim"></div>}
+  {!image && <div class="blueprint-bg plain-bg"></div>}
+  <div class="inner">
+    <nav class="crumbs" aria-label="פירורי לחם">
+      {trail.map((c, i) => <>{i > 0 && <span aria-hidden="true">/</span>}{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</>)}
+    </nav>
+    {kicker && <span class="kicker">{kicker}</span>}
+    <h1 class="h1 split">{title}</h1>
+    {lead && <p>{lead}</p>}
+    <slot />
+  </div>
+</section>
+<style is:global>
+  .page-hero.plain{background:var(--ink)}
+  .page-hero .plain-bg{position:absolute;inset:0;z-index:0}
+</style>

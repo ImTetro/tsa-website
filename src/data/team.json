@@ -1,0 +1,98 @@
+{
+  "partners": [
+    {
+      "name": "גבי טטרו",
+      "role": "אדריכל מייסד ושותף",
+      "photo": "src/assets/photos/team/19b9e7_b86139b7dafc4e30a28bae66858d758c~mv2.jpg",
+      "bio": [
+        "יליד 1950, בוגר האקדמיה לאמנות בלנינגרד ובוגר האקדמיה לאדריכלות במוסקבה.",
+        "עלה ארצה ב-1976, וב-1978 הקים את חברת טטרו אדריכלים בע״מ.",
+        "במהלך יותר מ-40 שנות עבודתו זכה בפרסים רבים בתחום האדריכלות ובתחרויות שונות בארץ ובחו״ל."
+      ]
+    },
+    {
+      "name": "גדי שחר",
+      "role": "אדריכל, מנכ״ל ושותף",
+      "photo": "src/assets/photos/team/19b9e7_665bc3da0a63475cb4268af0b45265ab~mv2.jpg",
+      "bio": [
+        "יליד 1958, הנדסאי אדריכלות מוסמך במסלול עתודאים, בוגר אורט טכניקום גבעתיים כמצטיין אורט ישראל בתחום האדריכלות. הכין את פרויקט הגמר במשרד אדריכלים בז׳נבה, שווייץ.",
+        "משנת 1981 עבד במשרדי אדריכלים, ומשנת 1993 ניהל משרד עצמאי שהעניק שירותי אדריכלות למשרדים בארץ ובחו״ל.",
+        "הצטרף למשרד גבי טטרו אדריכלים כשותף פעיל בשנת 2010."
+      ]
+    }
+  ],
+  "staff": [
+    {
+      "name": "בני פרדו",
+      "role": "אדריכל בכיר",
+      "photo": "src/assets/photos/team/19b9e7_d61c3e095c0d43869102e753e04a0cb8~mv2.jpg"
+    },
+    {
+      "name": "דיאגו סילבר",
+      "role": "אדריכל בכיר",
+      "photo": "src/assets/photos/team/19b9e7_66bf79e94e5940ed87b72afd02b9bfd4~mv2.jpg"
+    },
+    {
+      "name": "מיכאל פיצ'חדזה",
+      "role": "תיאום תכנון ורישוי",
+      "photo": "src/assets/photos/team/19b9e7_224a830941ed4dde933632d94e0253b5~mv2.png"
+    },
+    {
+      "name": "אירינה קורצקי",
+      "role": "הנדסאית אדריכלות",
+      "photo": "src/assets/photos/team/19b9e7_7c4110be74a94732a30cd52dc5156c8d~mv2.jpg"
+    },
+    {
+      "name": "דניאל דבוש",
+      "role": "אדריכל",
+      "photo": "src/assets/photos/team/19b9e7_92196d68f53e4dcebb6576f7e0bf069b~mv2.png"
+    },
+    {
+      "name": "ולדימיר דוצנקו",
+      "role": "הנדסאי אדריכלות",
+      "photo": "src/assets/photos/team/19b9e7_0b2f70ff1909402cbeaa21c380529c86~mv2.jpg"
+    },
+    {
+      "name": "וסילי לוקטב",
+      "role": "אדריכל, אחראי הדמיות",
+      "photo": "src/assets/photos/team/19b9e7_eac8f3b3d6454a9aa7ea3a3780a7f55d~mv2.jpg"
+    },
+    {
+      "name": "מליסה ג׳ורנו",
+      "role": "הנדסאית אדריכלות",
+      "photo": "src/assets/photos/team/19b9e7_8538f95f3d7646fab984dd94a04beafc~mv2.jpeg"
+    },
+    {
+      "name": "שלומי טפירו",
+      "role": "אדריכל",
+      "photo": "src/assets/photos/team/19b9e7_df345f8e23334158a493644afc40b2cd~mv2.jpeg"
+    },
+    {
+      "name": "אלכסנדרה רוזנבוים",
+      "role": "אדריכלית",
+      "photo": null
+    },
+    {
+      "name": "גלית דיאמנט",
+      "role": "הנהלת חשבונות",
+      "photo": "src/assets/photos/team/19b9e7_1fc8c997d9734c40985c8e2dd0d372e8~mv2.jpg"
+    },
+    {
+      "name": "נטלי וייצמן",
+      "role": "מנהלת אדמיניסטרטיבית",
+      "photo": null
+    },
+    {
+      "name": "אפק טטרו",
+      "role": "אחראי מחשוב",
+      "photo": null
+    }
+  ],
+  "closing": "הצוות שלנו כולל את מיטב האדריכלים, המאמינים בדרכו של המשרד ונותנים מענה מקיף ומפורט לכל לקוח, עם שירות ברמה הגבוהה ביותר.",
+  "unassignedPhotos": [
+    "src/assets/photos/team/19b9e7_f78931ed14d44f7fa45d161f3f3a3230~mv2.jpeg",
+    "src/assets/photos/team/19b9e7_edbcfa546b4a4d57a99d33f3a7a782e5~mv2.png",
+    "src/assets/photos/team/19b9e7_d522b0101a7c4f5dbd76a084a8e005be~mv2.png"
+  ],
+  "_note": "To show a photo for someone, move a path from unassignedPhotos into their 'photo'. Michael's role should be confirmed."
+}

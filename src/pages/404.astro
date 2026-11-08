@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="הדף לא נמצא" description="הדף שחיפשתם לא נמצא באתר טטרו שחר אדריכלים." noindex>
+  <section class="nf blueprint-bg on-ink" data-hero>
+    <div class="nf-inner">
+      <span class="nf-code" aria-hidden="true">404</span>
+      <h1 class="h1">הדף לא נמצא</h1>
+      <p class="lead">ייתכן שהקישור ישן או שהדף הועבר. אפשר להמשיך מכאן:</p>
+      <div class="nf-links">
+        <a class="btn sand mag" href="/"><span>לדף הבית</span></a>
+        <a class="btn ghost" href="/projects"><span>לפרויקטים</span></a>
+        <a class="btn ghost" href="/contact"><span>צור קשר</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
+<style is:global>
+  .nf{min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:calc(var(--header-h) + 40px) var(--pad) 60px;text-align:center}
+  .nf-code{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(110px,20vw,260px);line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--line)}
+  .nf .h1{margin:12px 0 16px}
+  .nf .lead{margin:0 auto}
+  .nf-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+</style>

@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import { getClients } from '../../lib/content';
+const all = getClients();
+const half = Math.ceil(all.length / 2);
+const rows = [all.slice(0, half), all.slice(half)];
+---
+<section class="clients">
+  <div class="section-head clients-head">
+    <h2 class="h2 split">בין לקוחותינו</h2>
+    <a class="more-link" href="/clients">לכל הלקוחות <span class="arr">→</span></a>
+  </div>
+  {rows.map((row, r) => (
+    <div class="marquee" data-dir={r % 2 ? '-1' : '1'}>
+      <div class="row">
+        {[...row, ...row].map((c, i) => <Image src={c.logo} alt={i < row.length ? c.name : ''} aria-hidden={i >= row.length ? 'true' : undefined} height={108} loading="lazy" />)}
+      </div>
+    </div>
+  ))}
+</section>
+<style is:global>
+  .clients{background:#fff;padding:clamp(56px,8vw,110px) 0;overflow:hidden}
+  .clients-head{padding:0 var(--pad);margin-bottom:40px}
+  .marquee{overflow:hidden}
+  .row{display:flex;gap:56px;width:max-content;align-items:center;padding:14px 0}
+  .row img{height:54px;width:auto;max-width:150px;object-fit:contain;filter:grayscale(1);opacity:.65;transition:filter .3s,opacity .3s}
+  .row img:hover{filter:none;opacity:1}
+</style>
+
+<script>
+  import '../../scripts/marquee';
+</script>

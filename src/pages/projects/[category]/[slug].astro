@@ -1,0 +1,78 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Gallery from '../../../components/Gallery.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import ContactBlock from '../../../components/home/ContactBlock.astro';
+import { getProjects, projectsIn, categoryByKey, type Project } from '../../../lib/content';
+
+export function getStaticPaths() {
+  return getProjects().map((p) => ({ params: { category: p.category, slug: p.slug }, props: { project: p } }));
+}
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const cat = categoryByKey(p.category)!;
+const siblings = projectsIn(p.category);
+const idx = siblings.indexOf(p);
+const prev = siblings.length > 1 ? siblings[(idx - 1 + siblings.length) % siblings.length] : null;
+const next = siblings.length > 1 ? siblings[(idx + 1) % siblings.length] : null;
+const related = [...siblings.filter((x) => x !== p && !x.placeholder), ...getProjects().filter((x) => x.category !== p.category && !x.placeholder)].slice(0, 3);
+const facts = [
+  ['תחום', p.urbanRenewal ? `${p.categoryLabel} · התחדשות עירונית` : p.categoryLabel],
+  ['עיר', p.city], ['שנה', p.year], ['סטטוס', p.status], ['היקף', p.size], ['לקוח', p.client],
+  ['תמונות', String(p.images.length)],
+].filter(([, v]) => v) as [string, string][];
+const desc = p.description ? `${p.title} – ${p.description}`.slice(0, 160) : `${p.title} – ${p.categoryLabel}${p.city ? `, ${p.city}` : ''}. פרויקט של טטרו שחר אדריכלים.`;
+---
+<Base title={p.title} description={desc} ogImage={p.cover.src}>
+  <PageHero title={p.title} kicker={p.urbanRenewal ? 'התחדשות עירונית' : cat.label} image={p.cover}
+    crumbs={[{ label: 'פרויקטים', href: '/projects' }, { label: cat.label, href: `/projects/${cat.slug}` }, { label: p.title }]} />
+
+  <section class="wrap project-body">
+    <aside class="pfacts" data-reveal>
+      <dl>{facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+      <a class="btn sand mag" href={`/contact?project=${encodeURIComponent(p.title)}`}><span>לפרטים על הפרויקט</span></a>
+    </aside>
+    <div class="pmain">
+      {p.description && <p class="lead pdesc">{p.description}</p>}
+      {p.placeholder && <p class="lead pdesc">מבחר תמונות מפרויקטים נוספים שתכננו בתחום {cat.label}.</p>}
+      <Gallery images={p.images} title={p.title} />
+    </div>
+  </section>
+
+  {(prev || next) && (
+    <nav class="pnav wrap-tight on-stone" aria-label="פרויקטים בתחום">
+      {prev ? <a class="pn prev" href={prev.url}><small>הפרויקט הקודם</small><b>{prev.title}</b></a> : <span />}
+      <a class="pn all" href={`/projects/${cat.slug}`}><small>כל הפרויקטים</small><b>{cat.label}</b></a>
+      {next ? <a class="pn next" href={next.url}><small>הפרויקט הבא</small><b>{next.title}</b></a> : <span />}
+    </nav>
+  )}
+
+  {related.length > 0 && (
+    <section class="wrap related">
+      <div class="section-head"><h2 class="h2 split">פרויקטים נוספים</h2><a class="more-link" href="/projects">לכל הפרויקטים <span class="arr">→</span></a></div>
+      <div class="grid">{related.map((r) => <ProjectCard project={r} />)}</div>
+    </section>
+  )}
+
+  <ContactBlock project={p.placeholder ? undefined : p.title} />
+</Base>
+<style is:global>
+  .project-body{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:clamp(28px,4vw,64px);align-items:start}
+  .pfacts{position:sticky;top:calc(var(--header-h) + 24px);display:grid;gap:24px}
+  .pfacts dl{margin:0;display:grid}
+  .pfacts dl div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid rgba(15,44,63,.14)}
+  .pfacts dt{color:var(--muted);font-size:14px}
+  .pfacts dd{margin:0;font-weight:600;text-align:left}
+  .pdesc{margin-bottom:32px}
+  .pnav{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center}
+  .pn{display:grid;gap:4px;padding:10px 0}
+  .pn small{color:var(--muted);font-size:13px}
+  .pn b{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2vw,28px);transition:color .3s}
+  .pn:hover b{color:#9a7a4c}
+  .pn.all{text-align:center}.pn.next{text-align:left}
+  @media (max-width:820px){
+    .project-body{grid-template-columns:1fr}.pfacts{position:static}
+    .pnav{grid-template-columns:1fr 1fr}.pn.all{grid-column:1/-1;order:3}
+  }
+</style>

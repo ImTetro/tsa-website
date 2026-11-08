@@ -1,0 +1,16 @@
+---
+import { getClients } from '../../lib/content';
+const clients = getClients().length;
+---
+<section class="statement wrap">
+  <p class="stmt" data-fill>כבר ארבעה עשורים אנחנו מתכננים את הבניינים שבהם אנשים גרים, עובדים ומתפללים. מווילה פרטית ועד מגדל של שלושים קומות, כל פרויקט מתחיל בקו אחד על הנייר.</p>
+  <div class="facts">
+    <div class="fact"><b data-to="1978" data-from="1950">1978</b><span>שנת ההקמה</span></div>
+    <div class="fact"><b data-to="25">25</b><span>אדריכלים, הנדסאים ומדמי״ם</span></div>
+    <div class="fact"><b data-to={clients}>{clients}</b><span>יזמים וגופים ציבוריים שעבדו איתנו</span></div>
+  </div>
+  <a class="more-link" href="/about">הסיפור שלנו <span class="arr">→</span></a>
+</section>
+<style is:global>
+  .statement .stmt{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.8vw,58px);line-height:1.25;max-width:24ch}
+</style>

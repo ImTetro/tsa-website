@@ -1,0 +1,44 @@
+---
+import logoLight from '../assets/brand/logo-light.png';
+import { SITE, tel } from '../site';
+import { CATEGORIES } from '../lib/categories';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="foot-grid container">
+    <div>
+      <a class="foot-logo" href="/" aria-label="דף הבית"><img src={logoLight.src} width={logoLight.width} height={logoLight.height} alt="טטרו שחר אדריכלים בע״מ" /></a>
+      <p style="max-width:34ch;line-height:1.7;font-size:15px">משרד אדריכלים ותכנון ערים בנתניה. מתכננים מגורים, מסחר, משרדים, וילות ובתי כנסת מאז {SITE.founded}.</p>
+    </div>
+    <div>
+      <h3>פרויקטים</h3>
+      <ul>
+        <li><a href="/projects">כל הפרויקטים</a></li>
+        {CATEGORIES.map((c) => <li><a href={`/projects/${c.slug}`}>{c.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h3>המשרד</h3>
+      <ul>
+        <li><a href="/about">אודות</a></li>
+        <li><a href="/team">הצוות</a></li>
+        <li><a href="/clients">בין לקוחותינו</a></li>
+        <li><a href="/urban-renewal">התחדשות עירונית</a></li>
+        <li><a href="/contact">צור קשר</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>צרו קשר</h3>
+      <ul>
+        {SITE.phones.map((p) => <li><a href={tel(p)}>{p}</a></li>)}
+        {SITE.email && <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>}
+        <li>{SITE.address}</li>
+        <li><a href={SITE.wazeUrl} target="_blank" rel="noopener">ניווט בוויז</a> · <a href={SITE.mapsUrl} target="_blank" rel="noopener">גוגל מפות</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom container">
+    <span>© {year} {SITE.name}</span>
+    <a href="/accessibility">הצהרת נגישות</a>
+  </div>
+</footer>

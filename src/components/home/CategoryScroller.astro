@@ -1,0 +1,43 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { CATEGORIES, projectsIn, imageCount, urbanRenewalProjects, type Project } from '../../lib/content';
+const coverOf = (ps: Project[]) => (ps.find((p) => !p.placeholder) ?? ps[0])?.cover;
+const raw: { label: string; href: string; count: number; cover?: ImageMetadata }[] =
+  CATEGORIES.map((c) => ({ label: c.label, href: `/projects/${c.slug}`, count: imageCount(c.key), cover: coverOf(projectsIn(c.key).filter((p) => !p.urbanRenewal)) ?? coverOf(projectsIn(c.key)) }));
+const ur = urbanRenewalProjects();
+raw.splice(1, 0, { label: 'התחדשות עירונית', href: '/urban-renewal', count: ur.reduce((n, p) => n + p.images.length, 0), cover: coverOf(ur) });
+const panels = await Promise.all(raw.filter((p) => p.cover).map(async (p) => ({ ...p, img: (await getImage({ src: p.cover!, width: 1100, format: 'webp' })).src })));
+---
+<section class="cats" data-blend-to="#0F2C3F">
+  <div class="top">
+    <h2 class="h2 split" data-blend-text="#0F2C3F,#FFFFFF">תחומי התכנון שלנו</h2>
+    <p data-blend-text="#4a5f6c,#b8cad6">כל תחום עם הצוות והניסיון שלו. גללו כדי לעבור בין התחומים, ולחצו כדי לראות את כל הפרויקטים בתחום.</p>
+  </div>
+  <div class="track" id="track">
+    {panels.map((p) => (
+      <a class="panel" href={p.href}>
+        <div class="ph" style={`background-image:url("${p.img}")`}></div>
+        <span class="num">{p.count} תמונות</span>
+        <div class="lbl"><b>{p.label}</b><span>לכל הפרויקטים ←</span></div>
+      </a>
+    ))}
+  </div>
+</section>
+<style is:global>
+  .cats{background:var(--ink);color:#fff;overflow:hidden;padding-bottom:clamp(56px,8vw,110px)}
+  .cats .top{padding:clamp(56px,8vw,110px) var(--pad) 32px;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+  .cats .top p{color:var(--muted-on-ink);max-width:40ch;line-height:1.6}
+  .track{display:flex;gap:clamp(12px,1.6vw,24px);padding:0 var(--pad);width:max-content}
+  .panel{position:relative;width:min(560px,78vw);height:min(66vh,620px);overflow:hidden;flex:0 0 auto;color:#fff}
+  .panel .ph{position:absolute;inset:0 -10%;background-size:cover;background-position:center;transition:transform 1s var(--ease)}
+  .panel:hover .ph{transform:scale(1.05)}
+  .panel .lbl{position:absolute;inset:auto 0 0 0;padding:70px 22px 20px;background:linear-gradient(0deg,rgba(10,30,44,.9),rgba(10,30,44,.4) 60%,rgba(10,30,44,0));display:flex;justify-content:space-between;align-items:end;gap:12px}
+  .panel .lbl b{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3vw,46px);line-height:1.05}
+  .panel .lbl span{font-size:14px;color:#dbe7ee;white-space:nowrap}
+  .panel .num{position:absolute;top:16px;right:18px;font-size:13px;background:rgba(10,30,44,.6);backdrop-filter:blur(6px);padding:4px 10px;border-radius:20px}
+  @media (max-width:820px){
+    .track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+    .panel{scroll-snap-align:start;height:58vh;width:82vw}
+  }
+</style>
