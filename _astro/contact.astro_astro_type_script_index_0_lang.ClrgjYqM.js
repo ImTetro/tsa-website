@@ -1,0 +1,1 @@
+import{o as n,$ as a}from"./core.Ca5GR6Ms.js";n(()=>{const r=a("#map");a("#map-load")?.addEventListener("click",()=>{const e=document.createElement("iframe");e.src=r.dataset.src,e.title="מפה: משרדי טטרו שחר אדריכלים",e.loading="lazy",e.referrerPolicy="no-referrer-when-downgrade",r.replaceChildren(e)})});
